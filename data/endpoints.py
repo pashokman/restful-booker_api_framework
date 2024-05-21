@@ -6,6 +6,8 @@ AUTH_ENDPOINT = '/auth'
 # -----GetBookingIds
 
 # -----GetBooking
+def GET_BOOKING_ENDPOINT(bookingid):
+    return f'/booking/{bookingid}'
 
 # -----CreateBooking
 CREATE_BOOKING_ENDPOINT = '/booking'
