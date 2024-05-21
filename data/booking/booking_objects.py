@@ -10,6 +10,18 @@ NEW_BOOKING_DATA = {
     "additionalneeds" : "two bathrooms"
 }
 
+NEW_BOOKING_DATA2 = {
+    "firstname" : "Sergant",
+    "lastname" : "Mahony",
+    "totalprice" : 789.15,
+    "depositpaid" : False,
+    "bookingdates" : {
+        "checkin" : "2023-10-10",
+        "checkout" : "2023-11-11"
+    },
+    "additionalneeds" : "little fridge"
+}
+
 UPDATE_BOOKING_DATA = {
     "firstname" : "Toster",
     "lastname" : "Rester",

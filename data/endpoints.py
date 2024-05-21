@@ -4,6 +4,7 @@ AUTH_ENDPOINT = '/auth'
 
 #           Booking
 # -----GetBookingIds
+GET_BOOKING_IDS_ENDPOINT = '/booking'
 
 # -----GetBooking
 def GET_BOOKING_ENDPOINT(bookingid):
@@ -11,6 +12,7 @@ def GET_BOOKING_ENDPOINT(bookingid):
 
 # -----CreateBooking
 CREATE_BOOKING_ENDPOINT = '/booking'
+
 # -----UpdateBooking
 
 # -----PartialUpdateBooking

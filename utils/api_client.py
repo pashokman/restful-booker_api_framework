@@ -9,9 +9,9 @@ class APIClient():
         url = f'{self.base_url}{endpoint}'
         return requests.post(url, json=data, headers=headers)
     
-    def get(self, endpoint, headers=None):
+    def get(self, endpoint, headers=None, params=None):
         url = f'{self.base_url}{endpoint}'
-        return requests.get(url, headers=headers)
+        return requests.get(url, headers=headers, params=params)
 
     def put(self, endpoint, data=None, headers=None):
         url = f'{self.base_url}{endpoint}'
