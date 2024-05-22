@@ -14,6 +14,8 @@ def GET_BOOKING_ENDPOINT(bookingid):
 CREATE_BOOKING_ENDPOINT = '/booking'
 
 # -----UpdateBooking
+def UPDATE_BOOKING_ENDPOINT(bookingid):
+    return f'/booking/{bookingid}'
 
 # -----PartialUpdateBooking
 

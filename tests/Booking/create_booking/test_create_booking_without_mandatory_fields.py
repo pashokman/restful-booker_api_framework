@@ -1,5 +1,6 @@
-import pytest
 import copy
+import pytest
+
 from data.endpoints import CREATE_BOOKING_ENDPOINT
 from data.booking.booking_objects import NEW_BOOKING_DATA
 

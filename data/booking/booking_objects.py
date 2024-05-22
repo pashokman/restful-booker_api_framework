@@ -25,7 +25,7 @@ NEW_BOOKING_DATA2 = {
 UPDATE_BOOKING_DATA = {
     "firstname" : "Toster",
     "lastname" : "Rester",
-    "totalprice" : 5000,
+    "totalprice" : 1234,
     "depositpaid" : False,
     "bookingdates" : {
         "checkin" : "2023-11-12",

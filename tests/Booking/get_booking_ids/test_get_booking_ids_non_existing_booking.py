@@ -1,4 +1,5 @@
 import pytest
+
 from data.endpoints import GET_BOOKING_IDS_ENDPOINT
 
 
