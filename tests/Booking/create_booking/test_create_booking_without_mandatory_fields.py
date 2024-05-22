@@ -11,7 +11,9 @@ def test_create_booking_without_firstname(api_client):
 
     response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
     resp_status = response.status_code
-    assert resp_status == 500
+    exp_status = 500
+    err_msg = f'Expected status code - {exp_status}. Current status code - {resp_status}'
+    assert resp_status == 500, err_msg
 
 
 @pytest.mark.create_booking
@@ -21,7 +23,9 @@ def test_create_booking_without_lastname(api_client):
 
     response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
     resp_status = response.status_code
-    assert resp_status == 500
+    exp_status = 500
+    err_msg = f'Expected status code - {exp_status}. Current status code - {resp_status}'
+    assert resp_status == 500, err_msg
 
 
 @pytest.mark.create_booking
@@ -31,7 +35,9 @@ def test_create_booking_without_totalprice(api_client):
 
     response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
     resp_status = response.status_code
-    assert resp_status == 500
+    exp_status = 500
+    err_msg = f'Expected status code - {exp_status}. Current status code - {resp_status}'
+    assert resp_status == 500, err_msg
 
 
 @pytest.mark.create_booking
@@ -41,7 +47,9 @@ def test_create_booking_without_depositpaid(api_client):
 
     response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
     resp_status = response.status_code
-    assert resp_status == 500
+    exp_status = 500
+    err_msg = f'Expected status code - {exp_status}. Current status code - {resp_status}'
+    assert resp_status == 500, err_msg
 
 
 @pytest.mark.create_booking
@@ -51,7 +59,9 @@ def test_create_booking_without_bookingdates(api_client):
 
     response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
     resp_status = response.status_code
-    assert resp_status == 500
+    exp_status = 500
+    err_msg = f'Expected status code - {exp_status}. Current status code - {resp_status}'
+    assert resp_status == 500, err_msg
 
 
 @pytest.mark.create_booking
@@ -61,7 +71,9 @@ def test_create_booking_without_bookingdates_checkin(api_client):
 
     response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
     resp_status = response.status_code
-    assert resp_status == 500
+    exp_status = 500
+    err_msg = f'Expected status code - {exp_status}. Current status code - {resp_status}'
+    assert resp_status == 500, err_msg
 
 
 @pytest.mark.create_booking

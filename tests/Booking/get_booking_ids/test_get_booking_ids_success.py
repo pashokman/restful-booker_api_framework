@@ -15,7 +15,7 @@ def three_bookings_creation(api_client):
     third_booking_resp = api_client.post(CREATE_BOOKING_ENDPOINT, NEW_BOOKING_DATA2)
     third_id = third_booking_resp.json()['bookingid']
 
-    return first_id, second_id, third_id
+    yield first_id, second_id, third_id
 
 
 @pytest.mark.get_booking_ids
@@ -26,10 +26,14 @@ def test_get_booking_ids_by_firstname_lastname_success(api_client, three_booking
     params = {'firstname': 'Lester', 'lastname': 'Tester'}
     ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
 
-    assert ids_resp.status_code == 200
-    assert {'bookingid': first_id} in ids_resp.json()
-    assert {'bookingid': second_id} in ids_resp.json()
-    assert {'bookingid': third_id} not in ids_resp.json()
+    status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}'
+    assert ids_resp.status_code == 200, status_err_msg
+    first_id_err_msg = f'First id - {first_id} is not in response body'
+    assert {'bookingid': first_id} in ids_resp.json(), first_id_err_msg
+    second_id_err_msg = f'Second id - {second_id} is not in response body'
+    assert {'bookingid': second_id} in ids_resp.json(), second_id_err_msg
+    third_id_err_msg = f'Third id - {third_id} is in response body'
+    assert {'bookingid': third_id} not in ids_resp.json(), third_id_err_msg
 
 
 @pytest.mark.get_booking_ids
@@ -40,10 +44,14 @@ def test_get_booking_ids_by_firstname_success(api_client, three_bookings_creatio
     params = {'firstname': 'Lester'}
     ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
 
-    assert ids_resp.status_code == 200
-    assert {'bookingid': first_id} in ids_resp.json()
-    assert {'bookingid': second_id} in ids_resp.json()
-    assert {'bookingid': third_id} not in ids_resp.json()
+    status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}'
+    assert ids_resp.status_code == 200, status_err_msg
+    first_id_err_msg = f'First id - {first_id} is not in response body'
+    assert {'bookingid': first_id} in ids_resp.json(), first_id_err_msg
+    second_id_err_msg = f'Second id - {second_id} is not in response body'
+    assert {'bookingid': second_id} in ids_resp.json(), second_id_err_msg
+    third_id_err_msg = f'Third id - {third_id} is in response body'
+    assert {'bookingid': third_id} not in ids_resp.json(), third_id_err_msg
 
 
 @pytest.mark.get_booking_ids
@@ -54,10 +62,14 @@ def test_get_booking_ids_by_lastname_success(api_client, three_bookings_creation
     params = {'lastname': 'Tester'}
     ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
 
-    assert ids_resp.status_code == 200
-    assert {'bookingid': first_id} in ids_resp.json()
-    assert {'bookingid': second_id} in ids_resp.json()
-    assert {'bookingid': third_id} not in ids_resp.json()
+    status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}'
+    assert ids_resp.status_code == 200, status_err_msg
+    first_id_err_msg = f'First id - {first_id} is not in response body'
+    assert {'bookingid': first_id} in ids_resp.json(), first_id_err_msg
+    second_id_err_msg = f'Second id - {second_id} is not in response body'
+    assert {'bookingid': second_id} in ids_resp.json(), second_id_err_msg
+    third_id_err_msg = f'Third id - {third_id} is in response body'
+    assert {'bookingid': third_id} not in ids_resp.json(), third_id_err_msg
 
 
 @pytest.mark.get_booking_ids
@@ -68,12 +80,15 @@ def test_get_booking_ids_by_checkin_success(api_client, three_bookings_creation)
     params = {'checkin': '2023-11-11'}
     ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
 
-    assert ids_resp.status_code == 200
+    status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}' 
+    assert ids_resp.status_code == 200, status_err_msg
     # logical errors - method should return bookings with checkin >= '2023-11-11', but it returns only >
-    assert {'bookingid': first_id} in ids_resp.json()
-    assert {'bookingid': second_id} in ids_resp.json()
-    assert {'bookingid': third_id} not in ids_resp.json()
-
+    first_id_err_msg = f'First id - {first_id} is not in response body'
+    assert {'bookingid': first_id} in ids_resp.json(), first_id_err_msg
+    second_id_err_msg = f'Second id - {second_id} is not in response body'
+    assert {'bookingid': second_id} in ids_resp.json(), second_id_err_msg
+    third_id_err_msg = f'Third id - {third_id} is in response body'
+    assert {'bookingid': third_id} not in ids_resp.json(), third_id_err_msg
 
 
 @pytest.mark.get_booking_ids
@@ -84,9 +99,12 @@ def test_get_booking_ids_by_checkout_success(api_client, three_bookings_creation
     params = {'checkout': '2023-11-12'}
     ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
 
-    assert ids_resp.status_code == 200
-    assert {'bookingid': first_id} in ids_resp.json()
-    assert {'bookingid': second_id} in ids_resp.json()
+    status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}' 
+    assert ids_resp.status_code == 200, status_err_msg 
+    first_id_err_msg = f'First id - {first_id} is not in response body'
+    assert {'bookingid': first_id} in ids_resp.json(), first_id_err_msg
+    second_id_err_msg = f'Second id - {second_id} is not in response body'
+    assert {'bookingid': second_id} in ids_resp.json(), second_id_err_msg
     # logical error - method should return only bookings with checkout >= '2023-11-12', but it returns also <
-    assert {'bookingid': third_id} not in ids_resp.json()
-
+    third_id_err_msg = f'Third id - {third_id} is in response body'
+    assert {'bookingid': third_id} not in ids_resp.json(), third_id_err_msg

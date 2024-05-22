@@ -17,8 +17,7 @@ def test_create_booking_without_additionalneeds(api_client):
     resp_status = response.status_code
     exp_obj['bookingid'] = resp_body['bookingid']
     
-    exp_status = 200
-    err_status = f'Expected status code - {exp_status}. Current status code - {resp_status}'
-    assert resp_status == exp_status, err_status
-    err_body = f'Expected body: \n{exp_obj} \nCurrent body: \n{resp_body}'
-    assert resp_body == exp_obj, err_body
+    status_err = f'Expected status code - 200. Current status code - {resp_status}'
+    assert resp_status == 200, status_err
+    body_err = f'Expected body: \n{exp_obj} \nCurrent body: \n{resp_body}'
+    assert resp_body == exp_obj, body_err

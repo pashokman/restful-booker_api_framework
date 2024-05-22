@@ -10,5 +10,8 @@ def test_get_booking_success(api_client):
     bookingid = response_create.json()['bookingid']
 
     response_get = api_client.get(GET_BOOKING_ENDPOINT(bookingid))
-    assert response_get.status_code == 200
-    assert response_get.json() == NEW_BOOKING_DATA
+    
+    status_err_msg = f'Expected status code - 200, current status code - {response_get.status_code}'
+    assert response_get.status_code == 200, status_err_msg
+    resp_body_err_msg = f'Expected response body - \n{NEW_BOOKING_DATA}, \ncurrent response body - \n{response_get.json()}'
+    assert response_get.json() == NEW_BOOKING_DATA,resp_body_err_msg
