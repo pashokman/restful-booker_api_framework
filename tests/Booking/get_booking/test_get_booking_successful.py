@@ -14,4 +14,4 @@ def test_get_booking_success(api_client):
     status_err_msg = f'Expected status code - 200, current status code - {response_get.status_code}'
     assert response_get.status_code == 200, status_err_msg
     resp_body_err_msg = f'Expected response body - \n{NEW_BOOKING_DATA}, \ncurrent response body - \n{response_get.json()}'
-    assert response_get.json() == NEW_BOOKING_DATA,resp_body_err_msg
+    assert response_get.json() == NEW_BOOKING_DATA, resp_body_err_msg

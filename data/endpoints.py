@@ -18,7 +18,8 @@ CREATE_BOOKING_ENDPOINT = '/booking'
 # -----PartialUpdateBooking
 
 # -----DeleteBooking
-
+def DELETE_BOOKING_ENDPOINT(bookingid):
+    return f'/booking/{bookingid}'
 
 #           Ping
 # -----HealthCheck
