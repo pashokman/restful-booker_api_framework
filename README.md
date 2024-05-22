@@ -34,3 +34,36 @@ addopts = --maxfail=2
 pip install -r requirements.txt
 ```
 9. Create test files in tests folder, separated by controlers.
+
+
+## Most used commands for testing and debugging
+Example of a request:
+```
+import requests
+
+data = {
+    "firstname": "Lester",
+    "lastname": "Tester"
+}
+
+response = requests.post('https://restful-booker.herokuapp.com/booking/', json=data, headers=headers)
+```
+1. ```response.status_code``` - returns a status code of a request response
+2. ```response.json()``` - returns a response body like a JSON object 
+3. ```response.text``` - returns a response body like a string
+4. ```response.url``` - returns the urls of the request
+5. ```response.request.body``` - returns a body of the request in a byte format
+6. ```response.request.body.decode("utf-8")``` - returns a body of the request in a string format
+7. ```response.request.headers``` - returns headers of the request
+8. Should use ```deepcopy``` command for creating a new copy of the data to change it whithout changing the original data:
+```
+import copy
+
+data = {
+    "firstname": "Lester",
+    "lastname": "Tester"
+}
+
+# creates a new data object
+new_data = copy.deepcopy(data) 
+```

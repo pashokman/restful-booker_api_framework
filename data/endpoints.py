@@ -18,6 +18,8 @@ def UPDATE_BOOKING_ENDPOINT(bookingid):
     return f'/booking/{bookingid}'
 
 # -----PartialUpdateBooking
+def PARTIAL_UPDATE_BOOKING_ENDPOINT(bookingid):
+    return f'/booking/{bookingid}'
 
 # -----DeleteBooking
 def DELETE_BOOKING_ENDPOINT(bookingid):
