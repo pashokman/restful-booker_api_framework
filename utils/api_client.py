@@ -11,7 +11,7 @@ class APIClient():
     
     def get(self, endpoint, headers=None, params=None):
         url = f'{self.base_url}{endpoint}'
-        return requests.get(url, headers=headers, params=params)
+        return requests.get(url, params=params, headers=headers)
 
     def put(self, endpoint, data=None, headers=None):
         url = f'{self.base_url}{endpoint}'

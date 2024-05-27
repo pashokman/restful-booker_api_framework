@@ -15,7 +15,7 @@ def test_update_booking_successful(api_client):
     booking_id = new_booking.json()['bookingid']
 
     headers = {'Cookie': f'token={token}'}
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), UPDATE_BOOKING_DATA, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), UPDATE_BOOKING_DATA, headers)
     get_booking = api_client.get(GET_BOOKING_ENDPOINT(booking_id))
 
     status_err_msg = f'Expected status code - 200, current status code - {update_booking.status_code}'

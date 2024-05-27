@@ -34,7 +34,7 @@ def test_get_booking_ids_by_firstname_lastname_success(three_bookings_creation):
     api_client, first_id, second_id, third_id = three_bookings_creation
 
     params = {'firstname': 'Lester', 'lastname': 'Tester'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
+    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
 
     status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}'
     assert ids_resp.status_code == 200, status_err_msg
@@ -52,7 +52,7 @@ def test_get_booking_ids_by_firstname_success(three_bookings_creation):
     api_client, first_id, second_id, third_id = three_bookings_creation
 
     params = {'firstname': 'Lester'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
+    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
 
     status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}'
     assert ids_resp.status_code == 200, status_err_msg
@@ -70,7 +70,7 @@ def test_get_booking_ids_by_lastname_success(three_bookings_creation):
     api_client, first_id, second_id, third_id = three_bookings_creation
 
     params = {'lastname': 'Tester'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
+    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
 
     status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}'
     assert ids_resp.status_code == 200, status_err_msg
@@ -88,7 +88,7 @@ def test_get_booking_ids_by_checkin_success(three_bookings_creation):
     api_client, first_id, second_id, third_id = three_bookings_creation
 
     params = {'checkin': '2023-11-11'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
+    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
 
     status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}' 
     assert ids_resp.status_code == 200, status_err_msg
@@ -107,7 +107,7 @@ def test_get_booking_ids_by_checkout_success(three_bookings_creation):
     api_client, first_id, second_id, third_id = three_bookings_creation
 
     params = {'checkout': '2023-11-12'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
+    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
 
     status_err_msg = f'Expected status code - 200, current status code - {ids_resp.status_code}' 
     assert ids_resp.status_code == 200, status_err_msg 

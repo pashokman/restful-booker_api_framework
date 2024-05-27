@@ -27,7 +27,7 @@ def test_update_booking_without_firstname(preparation):
     api_client, booking_id, headers, changed_data = preparation   
     del changed_data['firstname']
 
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     err_msg = f'Expected status code - 400, current status code - {update_booking.status_code}'
     assert update_booking.status_code == 400, err_msg
 
@@ -37,7 +37,7 @@ def test_update_booking_without_lastname(preparation):
     api_client, booking_id, headers, changed_data = preparation
     del changed_data['lastname']
 
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     err_msg = f'Expected status code - 400, current status code - {update_booking.status_code}'
     assert update_booking.status_code == 400, err_msg
 
@@ -47,7 +47,7 @@ def test_update_booking_without_totalprice(preparation):
     api_client, booking_id, headers, changed_data = preparation
     del changed_data['totalprice']
 
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     err_msg = f'Expected status code - 400, current status code - {update_booking.status_code}'
     assert update_booking.status_code == 400, err_msg
 
@@ -57,7 +57,7 @@ def test_update_booking_without_depositpaid(preparation):
     api_client, booking_id, headers, changed_data = preparation
     del changed_data['depositpaid']
 
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     err_msg = f'Expected status code - 400, current status code - {update_booking.status_code}'
     assert update_booking.status_code == 400, err_msg
 
@@ -67,7 +67,7 @@ def test_update_booking_without_bookingdates(preparation):
     api_client, booking_id, headers, changed_data = preparation
     del changed_data['bookingdates']
 
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     err_msg = f'Expected status code - 400, current status code - {update_booking.status_code}'
     assert update_booking.status_code == 400, err_msg
 
@@ -77,7 +77,7 @@ def test_update_booking_without_bookingdates_checkin(preparation):
     api_client, booking_id, headers, changed_data = preparation
     del changed_data['bookingdates']['checkin']
 
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     err_msg = f'Expected status code - 400, current status code - {update_booking.status_code}'
     assert update_booking.status_code == 400, err_msg
 
@@ -87,6 +87,6 @@ def test_update_booking_without_bookingdates_checkout(preparation):
     api_client, booking_id, headers, changed_data = preparation
     del changed_data['bookingdates']['checkout']
 
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     err_msg = f'Expected status code - 400, current status code - {update_booking.status_code}'
     assert update_booking.status_code == 400, err_msg

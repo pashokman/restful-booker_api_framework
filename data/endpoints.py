@@ -27,3 +27,4 @@ def DELETE_BOOKING_ENDPOINT(bookingid):
 
 #           Ping
 # -----HealthCheck
+HEALTH_CHECK_ENDPOINT = '/ping'

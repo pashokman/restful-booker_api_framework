@@ -45,6 +45,19 @@ def test_create_booking_totalprice_not_number(api_client):
 
 
 @pytest.mark.create_booking
+def test_create_booking_totalprice_not_integer(api_client):
+    changed_data = copy.deepcopy(NEW_BOOKING_DATA)
+    changed_data['totalprice'] = 123.45
+
+    response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
+    resp_status = response.status_code
+
+    exp_status_code = 500
+    err_msg = f'Expected status code - {exp_status_code}, current status code - {resp_status}'
+    assert resp_status == exp_status_code, err_msg
+
+
+@pytest.mark.create_booking
 def test_create_booking_depositpaid_not_boolean(api_client):
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     changed_data['depositpaid'] = 'deposit'

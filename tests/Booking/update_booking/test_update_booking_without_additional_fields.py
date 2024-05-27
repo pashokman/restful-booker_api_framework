@@ -31,7 +31,7 @@ def test_update_booking_without_additionalneeds(preparation):
     exp_obj = UPDATE_BOOKING_DATA
     exp_obj['additionalneeds'] = NEW_BOOKING_DATA['additionalneeds']
     
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers=headers)
+    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
     get_booking = api_client.get(GET_BOOKING_ENDPOINT(booking_id))
 
     status_err_msg = f'Expected status code - 200, current status code - {update_booking.status_code}'

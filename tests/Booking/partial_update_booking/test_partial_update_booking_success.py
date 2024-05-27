@@ -17,7 +17,7 @@ def prepare(api_client):
 
     yield api_client, headers, booking_id
 
-    api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers)
+    api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
 
 
 @pytest.mark.partial_update_booking

@@ -21,7 +21,7 @@ def test_create_booking_totalprice_0(api_client):
 @pytest.mark.create_booking
 def test_create_booking_totalprice_less_than_0(api_client):
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    changed_data['totalprice'] = -500.13
+    changed_data['totalprice'] = -500
 
     response = api_client.post(CREATE_BOOKING_ENDPOINT, data=changed_data)
     resp_status = response.status_code
