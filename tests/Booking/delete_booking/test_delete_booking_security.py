@@ -1,22 +1,24 @@
 import pytest
 
-from data.endpoints import AUTH_ENDPOINT, CREATE_BOOKING_ENDPOINT, DELETE_BOOKING_ENDPOINT
 from data.auth.auth_objects import AUTH_DATA
 from data.booking.booking_objects import NEW_BOOKING_DATA
+
+from utils.methods.authorization import authorization
+from utils.methods.booking import *
+
+from utils.assertions.assert_status_code import assert_status_code
 
 
 @pytest.fixture
 def prepare(api_client):
-    auth = api_client.post(AUTH_ENDPOINT, AUTH_DATA)
-    token = auth.json()['token']
-    headers = {'Cookie': f'token={token}'}
+    token = authorization(api_client, AUTH_DATA)
 
-    new_booking = api_client.post(CREATE_BOOKING_ENDPOINT, NEW_BOOKING_DATA)
-    booking_id = new_booking.json()['bookingid']
+    create_resp = create_booking(api_client, NEW_BOOKING_DATA)
+    booking_id = create_resp.json()['bookingid']
 
     yield token, booking_id, api_client
 
-    api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
+    delete_booking(api_client, booking_id, token)
 
 
 @pytest.mark.delete_booking
@@ -27,8 +29,7 @@ def test_delete_booking_token_and_1_symbol(prepare):
 
     del_booking = api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
 
-    err_msg = f"Expected status code - 403, current status code - {del_booking.status_code}"
-    assert del_booking.status_code == 403, err_msg
+    assert_status_code(del_booking.status_code, 403)
 
 
 @pytest.mark.delete_booking
@@ -39,8 +40,7 @@ def test_delete_booking_token_without_last_symbol(prepare):
 
     del_booking = api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
 
-    err_msg = f"Expected status code - 403, current status code - {del_booking.status_code}"
-    assert del_booking.status_code == 403, err_msg
+    assert_status_code(del_booking.status_code, 403)
 
 
 @pytest.mark.delete_booking
@@ -51,8 +51,7 @@ def test_delete_booking_token_without_first_symbol(prepare):
 
     del_booking = api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
 
-    err_msg = f"Expected status code - 403, current status code - {del_booking.status_code}"
-    assert del_booking.status_code == 403, err_msg
+    assert_status_code(del_booking.status_code, 403)
 
 
 @pytest.mark.delete_booking
@@ -63,8 +62,7 @@ def test_delete_booking_without_token(prepare):
 
     del_booking = api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
 
-    err_msg = f"Expected status code - 403, current status code - {del_booking.status_code}"
-    assert del_booking.status_code == 403, err_msg
+    assert_status_code(del_booking.status_code, 403)
 
 
 @pytest.mark.delete_booking
@@ -74,5 +72,4 @@ def test_delete_booking_without_headers(prepare):
 
     del_booking = api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id))
 
-    err_msg = f"Expected status code - 403, current status code - {del_booking.status_code}"
-    assert del_booking.status_code == 403, err_msg
+    assert_status_code(del_booking.status_code, 403)

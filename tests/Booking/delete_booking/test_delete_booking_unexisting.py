@@ -1,17 +1,18 @@
 import pytest
 
 from data.auth.auth_objects import AUTH_DATA
-from data.endpoints import AUTH_ENDPOINT, DELETE_BOOKING_ENDPOINT
+
+from utils.methods.authorization import authorization
+from utils.methods.booking import *
+
+from utils.assertions.assert_status_code import assert_status_code
 
 
 @pytest.mark.delete_booking
-def test_delete_booking_successful(api_client):
-    auth = api_client.post(AUTH_ENDPOINT, data=AUTH_DATA)
-    token = auth.json()['token']
-    headers = {'Cookie': f'token={token}'}
+def test_delete_booking_unexisting(api_client):
+    token = authorization(api_client, AUTH_DATA)
 
-    delete_booking = api_client.delete(DELETE_BOOKING_ENDPOINT(999999), headers=headers)
+    delete_resp = delete_booking(api_client, 999999, token)
 
-    del_err_msg = f'Expected status code - 405, current status code - {delete_booking.status_code}'
-    assert delete_booking.status_code == 405, del_err_msg
+    assert_status_code(delete_resp.status_code, 405)
     
