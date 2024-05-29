@@ -9,10 +9,10 @@ from utils.assertions.assert_status_code import assert_status_code
 
 
 @pytest.mark.delete_booking
-def test_delete_booking_unexisting(api_client):
-    token = authorization(api_client, AUTH_DATA)
+def test_delete_booking_unexisting():
+    token = authorization(AUTH_DATA)
 
-    delete_resp = delete_booking(api_client, 999999, token)
+    delete_resp = delete_booking(999999, token)
 
     assert_status_code(delete_resp.status_code, 405)
     

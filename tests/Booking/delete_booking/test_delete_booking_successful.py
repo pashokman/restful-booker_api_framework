@@ -11,14 +11,15 @@ from utils.assertions.assert_status_code import assert_status_code
 
 @pytest.mark.delete_booking
 @pytest.mark.success
-def test_delete_booking_successful(api_client):
-    token = authorization(api_client, AUTH_DATA)
+def test_delete_booking_successful():
+    token = authorization(AUTH_DATA)
 
-    create_resp = create_booking(api_client, NEW_BOOKING_DATA)
-    booking_id = create_resp.json()['bookingid']
+    create_resp_json = create_booking_json(NEW_BOOKING_DATA)
+    booking_id = create_resp_json['bookingid']
+    print(booking_id)
 
-    delete_resp = delete_booking(api_client, booking_id, token)
-    get_resp = get_booking(api_client, booking_id)
+    delete_resp = delete_booking(booking_id, token)
+    get_resp = get_booking(booking_id)
 
     assert_status_code(delete_resp.status_code, 201)
     assert_status_code(get_resp.status_code, 404)

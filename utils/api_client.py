@@ -1,5 +1,7 @@
 import requests
+
 from utils.config import BASE_URL
+
 
 class APIClient():
     def __init__(self, base_url = BASE_URL):
@@ -24,3 +26,4 @@ class APIClient():
     def delete(self, endpoint, data=None, headers=None):
         url = f'{self.base_url}{endpoint}'
         return requests.delete(url, json=data, headers=headers)
+    

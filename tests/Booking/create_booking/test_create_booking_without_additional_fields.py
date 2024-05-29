@@ -12,23 +12,24 @@ from utils.assertions.assert_json_object import assert_json_object
 
 
 @pytest.mark.create_booking
-def test_create_booking_without_additionalneeds(api_client):
-    token = authorization(api_client, AUTH_DATA)
+def test_create_booking_without_additionalneeds():
+    token = authorization(AUTH_DATA)
 
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     del changed_data['additionalneeds']
     
-    create_resp = create_booking(api_client, changed_data)
+    create_resp = create_booking(changed_data)
     create_resp_json = create_resp.json()
+    booking_id = create_resp_json['bookingid']
 
     exp_obj = {}
     exp_obj['booking'] = changed_data
-    exp_obj['bookingid'] = create_resp_json['bookingid']
+    exp_obj['bookingid'] = booking_id
 
     assert_status_code(create_resp.status_code, 200)
     assert_json_object(create_resp_json, exp_obj)
 
-    get_resp = get_booking_json(api_client, create_resp_json['bookingid'])
+    get_resp = get_booking_json(booking_id)
     assert_json_object(get_resp, exp_obj['booking'])
 
-    delete_booking(api_client, create_resp_json['bookingid'], token)
+    delete_booking(booking_id, token)

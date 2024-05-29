@@ -1,19 +1,19 @@
 import pytest
 
-from data.endpoints import GET_BOOKING_ENDPOINT
+from utils.methods.booking import *
+
+from utils.assertions.assert_status_code import assert_status_code
 
 
 @pytest.mark.get_booking
-def test_get_booking_non_existing_id_999999(api_client):
-    response_get = api_client.get(GET_BOOKING_ENDPOINT(999999))
+def test_get_booking_non_existing_id_999999():
+    get_resp = get_booking(999999)
 
-    status_err_msg = f'Expected status code - 404, current status code - {response_get.status_code}'
-    assert response_get.status_code == 404, status_err_msg
+    assert_status_code(get_resp.status_code, 404)
 
 
 @pytest.mark.get_booking
-def test_get_booking_non_existing_id_0(api_client):
-    response_get = api_client.get(GET_BOOKING_ENDPOINT(0))
+def test_get_booking_non_existing_id_0():
+    get_resp = get_booking(0)
 
-    status_err_msg = f'Expected status code - 404, current status code - {response_get.status_code}'    
-    assert response_get.status_code == 404, status_err_msg
+    assert_status_code(get_resp.status_code, 404)
