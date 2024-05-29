@@ -1,4 +1,4 @@
-from data.endpoints import CREATE_BOOKING_ENDPOINT, GET_BOOKING_ENDPOINT, DELETE_BOOKING_ENDPOINT
+from data.endpoints import CREATE_BOOKING_ENDPOINT, GET_BOOKING_ENDPOINT, DELETE_BOOKING_ENDPOINT, GET_BOOKING_IDS_ENDPOINT
 from utils.api_client import APIClient
 
 
@@ -34,4 +34,14 @@ def get_booking(booking_id):
 
 def get_booking_json(booking_id):   
     get_resp = api_client.get(GET_BOOKING_ENDPOINT(booking_id))
+    return get_resp.json()
+
+
+def get_booking_ids(params):
+    get_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
+    return get_resp
+
+
+def get_booking_ids_json(params):
+    get_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params=params)
     return get_resp.json()

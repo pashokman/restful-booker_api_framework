@@ -1,40 +1,39 @@
 import pytest
 
-from data.endpoints import GET_BOOKING_IDS_ENDPOINT
+from utils.methods.booking import *
+
+from utils.assertions.assert_response_is_empty import assert_response_is_empty
 
 
 @pytest.mark.get_booking_ids
-def test_get_booking_ids_by_non_existing_firstname(api_client):
+def test_get_booking_ids_by_non_existing_firstname():
     params = {'firstname': 'Pop'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
-
-    err_msg = f'Response body is not empty - {ids_resp.json()}'
-    assert ids_resp.json() == [], err_msg
+    get_ids_resp_json = get_booking_ids_json(params)
+    
+    assert_response_is_empty(get_ids_resp_json)
 
 
 @pytest.mark.get_booking_ids
-def test_get_booking_ids_by_non_existing_lastname(api_client):
+def test_get_booking_ids_by_non_existing_lastname():
     params = {'lastname': 'Rorin'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
-
-    err_msg = f'Response body is not empty - {ids_resp.json()}'
-    assert ids_resp.json() == [], err_msg
+    get_ids_resp_json = get_booking_ids_json(params)
+    
+    assert_response_is_empty(get_ids_resp_json)
 
 
 @pytest.mark.get_booking_ids
-def test_get_booking_ids_by_non_existing_checkin(api_client):
+def test_get_booking_ids_by_non_existing_checkin():
     params = {'checkin': '3000-08-05'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
-
-    err_msg = f'Response body is not empty - {ids_resp.json()}'
-    assert ids_resp.json() == [], err_msg
+    get_ids_resp_json = get_booking_ids_json(params)
+    
+    # logical error - method should return only bookings with checkin >= '3000-08-05', but it returns also <
+    assert_response_is_empty(get_ids_resp_json)
 
 
 @pytest.mark.get_booking_ids
-def test_get_booking_ids_by_non_existing_checkout(api_client):
+def test_get_booking_ids_by_non_existing_checkout():
     params = {'checkout': '3000-08-05'}
-    ids_resp = api_client.get(GET_BOOKING_IDS_ENDPOINT, params)
+    get_ids_resp_json = get_booking_ids_json(params)
     
     # logical error - method should return only bookings with checkout >= '2023-11-12', but it returns also <
-    err_msg = f'Response body is not empty - \n{ids_resp.json()}'
-    assert ids_resp.json() == [], err_msg
+    assert_response_is_empty(get_ids_resp_json)
