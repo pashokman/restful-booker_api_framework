@@ -3,40 +3,41 @@ import pytest
 
 from data.auth.auth_objects import AUTH_DATA
 from data.booking.booking_objects import NEW_BOOKING_DATA, UPDATE_BOOKING_DATA
-from data.endpoints import AUTH_ENDPOINT, CREATE_BOOKING_ENDPOINT, GET_BOOKING_ENDPOINT, UPDATE_BOOKING_ENDPOINT, DELETE_BOOKING_ENDPOINT
+
+from utils.methods.authorization import authorization
+from utils.methods.booking import *
+
+from utils.assertions.assert_status_code import assert_status_code
+from utils.assertions.assert_json_object import assert_json_object
 
 
 @pytest.fixture
-def preparation(api_client):
-    auth = api_client.post(AUTH_ENDPOINT, AUTH_DATA)
-    token = auth.json()['token']
+def preparation():
+    token = authorization(AUTH_DATA)
 
-    new_booking = api_client.post(CREATE_BOOKING_ENDPOINT, NEW_BOOKING_DATA)
-    booking_id = new_booking.json()['bookingid']
+    create_resp_json = create_booking_json(NEW_BOOKING_DATA)
+    booking_id = create_resp_json['bookingid']
 
-    headers = {'Cookie': f'token={token}'}
     changed_data = copy.deepcopy(UPDATE_BOOKING_DATA)
 
-    yield api_client, booking_id, headers, changed_data
+    yield token, booking_id, changed_data
 
-    api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
+    delete_booking(booking_id, token)
 
 
 @pytest.mark.update_booking
 @pytest.mark.success
 def test_update_booking_without_additionalneeds(preparation):
-    api_client, booking_id, headers, changed_data = preparation
+    token, booking_id, changed_data = preparation
     del changed_data['additionalneeds']
 
     exp_obj = UPDATE_BOOKING_DATA
     exp_obj['additionalneeds'] = NEW_BOOKING_DATA['additionalneeds']
     
-    update_booking = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), changed_data, headers)
-    get_booking = api_client.get(GET_BOOKING_ENDPOINT(booking_id))
+    update_resp = update_booking(booking_id, changed_data, token)
+    get_resp_json = get_booking_json(booking_id)
 
-    status_err_msg = f'Expected status code - 200, current status code - {update_booking.status_code}'
-    assert update_booking.status_code == 200, status_err_msg
-    update_body_err_msg = f'Expected body - \n{UPDATE_BOOKING_DATA}, \ncurrent body - \n{update_booking.json()}'
-    assert update_booking.json() == exp_obj, update_body_err_msg
-    get_body_err_msg = f'Expected body - \n{UPDATE_BOOKING_DATA}, \ncurrent body - \n{get_booking.json()}'
-    assert get_booking.json() == UPDATE_BOOKING_DATA, get_body_err_msg
+    assert_status_code(update_resp.status_code, 200)
+    assert_json_object(update_resp.json(), exp_obj)
+    assert_json_object(get_resp_json, exp_obj)
+    

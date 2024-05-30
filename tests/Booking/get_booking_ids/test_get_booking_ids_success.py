@@ -47,7 +47,6 @@ def test_get_booking_ids_by_firstname_lastname_success(three_bookings_creation):
     assert_obj_not_in_obj({'bookingid': third_id}, get_ids_resp_json)
 
 
-
 @pytest.mark.get_booking_ids
 @pytest.mark.success
 def test_get_booking_ids_by_firstname_success(three_bookings_creation):

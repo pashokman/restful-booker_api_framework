@@ -1,78 +1,74 @@
 import pytest
 
-from data.endpoints import AUTH_ENDPOINT, CREATE_BOOKING_ENDPOINT, PARTIAL_UPDATE_BOOKING_ENDPOINT, DELETE_BOOKING_ENDPOINT
 from data.auth.auth_objects import AUTH_DATA
 from data.booking.booking_objects import NEW_BOOKING_DATA
 
+from utils.methods.authorization import authorization
+from utils.methods.booking import *
+
+from utils.assertions.assert_status_code import assert_status_code
+
 
 @pytest.fixture
-def prepare(api_client):
-    auth = api_client.post(AUTH_ENDPOINT, AUTH_DATA)
-    token = auth.json()['token']
-    headers = {'Cookie': f'token={token}'}
+def prepare():
+    token = authorization(AUTH_DATA)
 
-    create_booking = api_client.post(CREATE_BOOKING_ENDPOINT, NEW_BOOKING_DATA)
-    booking_id = create_booking.json()['bookingid']
+    create_resp_json = create_booking_json(NEW_BOOKING_DATA)
+    booking_id = create_resp_json['bookingid']
 
-    yield token, booking_id, api_client
+    yield token, booking_id
 
-    api_client.delete(DELETE_BOOKING_ENDPOINT(booking_id), headers=headers)
+    delete_booking(booking_id, token)
 
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
 def test_partial_update_booking_token_and_1_symbol(prepare):
-    token, booking_id, api_client = prepare
-    headers = {'Cookie': f'token={token}w'}
+    token, booking_id = prepare
+    token = token + 'w'
     
-    part_upd_booking = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), {'firstname': 'Joey'}, headers)
+    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
 
-    err_msg = f"Expected status code - 403, current status code - {part_upd_booking.status_code}"
-    assert part_upd_booking.status_code == 403, err_msg
+    assert_status_code(part_upd_resp.status_code, 403)
 
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
 def test_partial_update_booking_token_without_last_symbol(prepare):
-    token, booking_id, api_client = prepare
-    headers = {'Cookie': f'token={token[:-1]}'}
+    token, booking_id = prepare
+    token = token[:-1]
     
-    part_upd_booking = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), {'firstname': 'Joey'}, headers)
+    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
 
-    err_msg = f"Expected status code - 403, current status code - {part_upd_booking.status_code}"
-    assert part_upd_booking.status_code == 403, err_msg
+    assert_status_code(part_upd_resp.status_code, 403)
 
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
 def test_partial_update_booking_token_without_first_symbol(prepare):
-    token, booking_id, api_client = prepare
-    headers = {'Cookie': f'token={token[1:]}'}
+    token, booking_id = prepare
+    token = token[1:]
     
-    part_upd_booking = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), {'firstname': 'Joey'}, headers)
+    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
 
-    err_msg = f"Expected status code - 403, current status code - {part_upd_booking.status_code}"
-    assert part_upd_booking.status_code == 403, err_msg
+    assert_status_code(part_upd_resp.status_code, 403)
 
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
 def test_partial_update_booking_without_token(prepare):
-    token, booking_id, api_client = prepare
-    headers = {'Cookie': f'token='}
-    
-    part_upd_booking = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), {'firstname': 'Joey'}, headers)
+    token, booking_id = prepare
 
-    err_msg = f"Expected status code - 403, current status code - {part_upd_booking.status_code}"
-    assert part_upd_booking.status_code == 403, err_msg
+    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'})
+
+    assert_status_code(part_upd_resp.status_code, 403)
 
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
 def test_partial_update_booking_without_headers(prepare):
-    token, booking_id, api_client = prepare
+    token, booking_id = prepare
     
-    part_upd_booking = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), {'firstname': 'Joey'})
+    part_upd_resp = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), {'firstname': 'Joey'})
 
-    err_msg = f"Expected status code - 403, current status code - {part_upd_booking.status_code}"
-    assert part_upd_booking.status_code == 403, err_msg
+    assert_status_code(part_upd_resp.status_code, 403)

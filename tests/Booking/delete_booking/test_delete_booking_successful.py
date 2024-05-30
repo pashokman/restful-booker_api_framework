@@ -23,5 +23,4 @@ def test_delete_booking_successful():
 
     assert_status_code(delete_resp.status_code, 201)
     assert_status_code(get_resp.status_code, 404)
-
     
