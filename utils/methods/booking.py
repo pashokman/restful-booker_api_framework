@@ -54,6 +54,12 @@ def update_booking(booking_id, data, token=None):
     return part_upd_resp
 
 
+def update_booking_json(booking_id, data, token=None):
+    headers = {'Cookie': f'token={token}'}
+    part_upd_resp = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), data, headers)
+    return part_upd_resp.json()
+
+
 def partial_update_boking(booking_id, data, token=None):
     headers = {'Cookie': f'token={token}'}
     part_upd_resp = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), data, headers)
