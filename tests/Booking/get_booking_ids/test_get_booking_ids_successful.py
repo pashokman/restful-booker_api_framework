@@ -11,19 +11,19 @@ from utils.assertions.assert_obj_in_obj import assert_obj_in_obj
 from utils.assertions.assert_obj_not_in_obj import assert_obj_not_in_obj
 
 
-@pytest.fixture()
+@pytest.fixture(scope='class')
 def three_bookings_creation():
     token = authorization(AUTH_DATA)
 
     # create 2 same books and one different
-    first_booking_resp = create_booking(NEW_BOOKING_DATA)
-    first_id = first_booking_resp.json()['bookingid']
+    first_booking_resp_json = create_booking_json(NEW_BOOKING_DATA)
+    first_id = first_booking_resp_json['bookingid']
 
-    second_booking_resp = create_booking(NEW_BOOKING_DATA)
-    second_id = second_booking_resp.json()['bookingid']
+    second_booking_resp_json = create_booking_json(NEW_BOOKING_DATA)
+    second_id = second_booking_resp_json['bookingid']
 
-    third_booking_resp = create_booking(NEW_BOOKING_DATA2)
-    third_id = third_booking_resp.json()['bookingid']
+    third_booking_resp_json = create_booking_json(NEW_BOOKING_DATA2)
+    third_id = third_booking_resp_json['bookingid']
 
     yield first_id, second_id, third_id
 
@@ -34,76 +34,65 @@ def three_bookings_creation():
 
 @pytest.mark.get_booking_ids
 @pytest.mark.success
-def test_get_booking_ids_by_firstname_lastname_successful(three_bookings_creation):
-    first_id, second_id, third_id = three_bookings_creation
+class TestGetBookingIDsSuccessful():
 
-    params = {'firstname': 'Lester', 'lastname': 'Tester'}
-    get_ids_resp = get_booking_ids(params)
-    get_ids_resp_json = get_ids_resp.json()
-
-    assert_status_code(get_ids_resp.status_code, 200)
-    assert_obj_in_obj({'bookingid': first_id}, get_ids_resp_json)
-    assert_obj_in_obj({'bookingid': second_id}, get_ids_resp_json)
-    assert_obj_not_in_obj({'bookingid': third_id}, get_ids_resp_json)
+    @pytest.fixture(autouse=True)
+    def setup(self, three_bookings_creation):
+        self.first_id, self.second_id, self.third_id = three_bookings_creation
 
 
-@pytest.mark.get_booking_ids
-@pytest.mark.success
-def test_get_booking_ids_by_firstname_successful(three_bookings_creation):
-    first_id, second_id, third_id = three_bookings_creation
+    def test_get_booking_ids_by_firstname_lastname_successful(self):
+        params = {'firstname': 'Lester', 'lastname': 'Tester'}
+        get_ids_resp = get_booking_ids(params)
+        get_ids_resp_json = get_ids_resp.json()
 
-    params = {'firstname': 'Lester'}
-    get_ids_resp = get_booking_ids(params)
-    get_ids_resp_json = get_ids_resp.json()
-
-    assert_status_code(get_ids_resp.status_code, 200)
-    assert_obj_in_obj({'bookingid': first_id}, get_ids_resp_json)
-    assert_obj_in_obj({'bookingid': second_id}, get_ids_resp_json)
-    assert_obj_not_in_obj({'bookingid': third_id}, get_ids_resp_json)
+        assert_status_code(get_ids_resp.status_code, 200)
+        assert_obj_in_obj({'bookingid': self.first_id}, get_ids_resp_json)
+        assert_obj_in_obj({'bookingid': self.second_id}, get_ids_resp_json)
+        assert_obj_not_in_obj({'bookingid': self.third_id}, get_ids_resp_json)
 
 
-@pytest.mark.get_booking_ids
-@pytest.mark.success
-def test_get_booking_ids_by_lastname_successful(three_bookings_creation):
-    first_id, second_id, third_id = three_bookings_creation
+    def test_get_booking_ids_by_firstname_successful(self):
+        params = {'firstname': 'Lester'}
+        get_ids_resp = get_booking_ids(params)
+        get_ids_resp_json = get_ids_resp.json()
 
-    params = {'lastname': 'Tester'}
-    get_ids_resp = get_booking_ids(params)
-    get_ids_resp_json = get_ids_resp.json()
-
-    assert_status_code(get_ids_resp.status_code, 200)
-    assert_obj_in_obj({'bookingid': first_id}, get_ids_resp_json)
-    assert_obj_in_obj({'bookingid': second_id}, get_ids_resp_json)
-    assert_obj_not_in_obj({'bookingid': third_id}, get_ids_resp_json)
+        assert_status_code(get_ids_resp.status_code, 200)
+        assert_obj_in_obj({'bookingid': self.first_id}, get_ids_resp_json)
+        assert_obj_in_obj({'bookingid': self.second_id}, get_ids_resp_json)
+        assert_obj_not_in_obj({'bookingid': self.third_id}, get_ids_resp_json)
 
 
-@pytest.mark.get_booking_ids
-@pytest.mark.success
-def test_get_booking_ids_by_checkin_successful(three_bookings_creation):
-    first_id, second_id, third_id = three_bookings_creation
+    def test_get_booking_ids_by_lastname_successful(self):
+        params = {'lastname': 'Tester'}
+        get_ids_resp = get_booking_ids(params)
+        get_ids_resp_json = get_ids_resp.json()
 
-    params = {'checkin': '2023-11-11'}
-    get_ids_resp = get_booking_ids(params)
-    get_ids_resp_json = get_ids_resp.json()
-
-    assert_status_code(get_ids_resp.status_code, 200)
-    # logical errors - method should return bookings with checkin >= '2023-11-11', but it returns only >
-    assert_obj_in_obj({'bookingid': first_id}, get_ids_resp_json)
-    assert_obj_in_obj({'bookingid': second_id}, get_ids_resp_json)
-    assert_obj_not_in_obj({'bookingid': third_id}, get_ids_resp_json)
+        assert_status_code(get_ids_resp.status_code, 200)
+        assert_obj_in_obj({'bookingid': self.first_id}, get_ids_resp_json)
+        assert_obj_in_obj({'bookingid': self.second_id}, get_ids_resp_json)
+        assert_obj_not_in_obj({'bookingid': self.third_id}, get_ids_resp_json)
 
 
-@pytest.mark.get_booking_ids
-@pytest.mark.success
-def test_get_booking_ids_by_checkout_successful(three_bookings_creation):
-    first_id, second_id, third_id = three_bookings_creation
+    def test_get_booking_ids_by_checkin_successful(self):
+        params = {'checkin': '2023-11-11'}
+        get_ids_resp = get_booking_ids(params)
+        get_ids_resp_json = get_ids_resp.json()
 
-    params = {'checkout': '2023-11-12'}
-    get_ids_resp = get_booking_ids(params)
-    get_ids_resp_json = get_ids_resp.json()
+        assert_status_code(get_ids_resp.status_code, 200)
+        # logical errors - method should return bookings with checkin >= '2023-11-11', but it returns only >
+        assert_obj_in_obj({'bookingid': self.first_id}, get_ids_resp_json)
+        assert_obj_in_obj({'bookingid': self.second_id}, get_ids_resp_json)
+        assert_obj_not_in_obj({'bookingid': self.third_id}, get_ids_resp_json)
 
-    assert_status_code(get_ids_resp.status_code, 200)
-    assert_obj_in_obj({'bookingid': first_id}, get_ids_resp_json)
-    assert_obj_in_obj({'bookingid': second_id}, get_ids_resp_json)
-    # logical error - method should return only bookings with checkout >= '2023-11-12', but it returns also <
-    assert_obj_not_in_obj({'bookingid': third_id}, get_ids_resp_json)
+
+    def test_get_booking_ids_by_checkout_successful(self):
+        params = {'checkout': '2023-11-12'}
+        get_ids_resp = get_booking_ids(params)
+        get_ids_resp_json = get_ids_resp.json()
+
+        assert_status_code(get_ids_resp.status_code, 200)
+        assert_obj_in_obj({'bookingid': self.first_id}, get_ids_resp_json)
+        assert_obj_in_obj({'bookingid': self.second_id}, get_ids_resp_json)
+        # logical error - method should return only bookings with checkout >= '2023-11-12', but it returns also <
+        assert_obj_not_in_obj({'bookingid': self.third_id}, get_ids_resp_json)

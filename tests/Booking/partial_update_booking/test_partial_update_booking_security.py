@@ -23,53 +23,37 @@ def prepare():
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
-def test_partial_update_booking_token_plus_1_end_symbol(prepare):
-    token, booking_id = prepare
-    token = token + 'w'
-    
-    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
+class TestPartialUpdateBookingSecurity():
 
-    assert_status_code(part_upd_resp.status_code, 403)
+    @pytest.fixture(autouse=True)
+    def setup(self, prepare):
+        self.token, self.booking_id = prepare
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.security
-def test_partial_update_booking_token_without_last_symbol(prepare):
-    token, booking_id = prepare
-    token = token[:-1]
-    
-    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
-
-    assert_status_code(part_upd_resp.status_code, 403)
+    def test_partial_update_booking_token_plus_1_end_symbol(self):
+        token = self.token + 'w'
+        part_upd_resp = partial_update_boking(self.booking_id, {'firstname': 'Joey'}, token)
+        assert_status_code(part_upd_resp.status_code, 403)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.security
-def test_partial_update_booking_token_without_first_symbol(prepare):
-    token, booking_id = prepare
-    token = token[1:]
-    
-    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
-
-    assert_status_code(part_upd_resp.status_code, 403)
+    def test_partial_update_booking_token_without_last_symbol(self):
+        token = self.token[:-1]
+        part_upd_resp = partial_update_boking(self.booking_id, {'firstname': 'Joey'}, token)
+        assert_status_code(part_upd_resp.status_code, 403)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.security
-def test_partial_update_booking_with_empty_token(prepare):
-    token, booking_id = prepare
-    token = ''
-
-    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
-
-    assert_status_code(part_upd_resp.status_code, 403)
+    def test_partial_update_booking_token_without_first_symbol(self):
+        token = self.token[1:]  
+        part_upd_resp = partial_update_boking(self.booking_id, {'firstname': 'Joey'}, token)
+        assert_status_code(part_upd_resp.status_code, 403)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.security
-def test_partial_update_booking_without_headers(prepare):
-    token, booking_id = prepare
-    
-    part_upd_resp = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(booking_id), {'firstname': 'Joey'})
+    def test_partial_update_booking_with_empty_token(self):
+        token = ''
+        part_upd_resp = partial_update_boking(self.booking_id, {'firstname': 'Joey'}, token)
+        assert_status_code(part_upd_resp.status_code, 403)
 
-    assert_status_code(part_upd_resp.status_code, 403)
+
+    def test_partial_update_booking_without_headers(self):       
+        part_upd_resp = api_client.patch(PARTIAL_UPDATE_BOOKING_ENDPOINT(self.booking_id), {'firstname': 'Joey'})
+        assert_status_code(part_upd_resp.status_code, 403)

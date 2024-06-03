@@ -11,7 +11,7 @@ from utils.assertions.assert_status_code import assert_status_code
 
 
 @pytest.fixture
-def preparation():
+def prepare():
     token = authorization(AUTH_DATA)
 
     create_resp_json = create_booking_json(NEW_BOOKING_DATA)
@@ -25,63 +25,64 @@ def preparation():
 
 
 @pytest.mark.update_booking
-def test_update_booking_without_firstname(preparation):
-    token, booking_id, changed_data = preparation   
-    del changed_data['firstname']
+class TestUpdateBookingWithoutMandatoryFields():
 
-    update_resp = update_booking(booking_id, changed_data, token)
-    assert_status_code(update_resp.status_code, 400)
-
-
-@pytest.mark.update_booking
-def test_update_booking_without_lastname(preparation):
-    token, booking_id, changed_data = preparation
-    del changed_data['lastname']
-
-    update_resp = update_booking(booking_id, changed_data, token)
-    assert_status_code(update_resp.status_code, 400)
+    @pytest.fixture(autouse=True)
+    def setup(self, prepare):
+        self.token, self.booking_id, self.changed_data = prepare
 
 
-@pytest.mark.update_booking
-def test_update_booking_without_totalprice(preparation):
-    token, booking_id, changed_data = preparation
-    del changed_data['totalprice']
+    def test_update_booking_without_firstname(self):
+        new_changed_data = copy.deepcopy(self.changed_data)
+        del new_changed_data['firstname']
 
-    update_resp = update_booking(booking_id, changed_data, token)
-    assert_status_code(update_resp.status_code, 400)
-
-
-@pytest.mark.update_booking
-def test_update_booking_without_depositpaid(preparation):
-    token, booking_id, changed_data = preparation
-    del changed_data['depositpaid']
-
-    update_resp = update_booking(booking_id, changed_data, token)
-    assert_status_code(update_resp.status_code, 400)
+        update_resp = update_booking(self.booking_id, new_changed_data, self.token)
+        assert_status_code(update_resp.status_code, 400)
 
 
-@pytest.mark.update_booking
-def test_update_booking_without_bookingdates(preparation):
-    token, booking_id, changed_data = preparation
-    del changed_data['bookingdates']
+    def test_update_booking_without_lastname(self):
+        new_changed_data = copy.deepcopy(self.changed_data)
+        del new_changed_data['lastname']
 
-    update_resp = update_booking(booking_id, changed_data, token)
-    assert_status_code(update_resp.status_code, 400)
-
-
-@pytest.mark.update_booking
-def test_update_booking_without_bookingdates_checkin(preparation):
-    token, booking_id, changed_data = preparation
-    del changed_data['bookingdates']['checkin']
-
-    update_resp = update_booking(booking_id, changed_data, token)
-    assert_status_code(update_resp.status_code, 400)
+        update_resp = update_booking(self.booking_id, new_changed_data, self.token)
+        assert_status_code(update_resp.status_code, 400)
 
 
-@pytest.mark.update_booking
-def test_update_booking_without_bookingdates_checkout(preparation):
-    token, booking_id, changed_data = preparation
-    del changed_data['bookingdates']['checkout']
+    def test_update_booking_without_totalprice(self):
+        new_changed_data = copy.deepcopy(self.changed_data)
+        del new_changed_data['totalprice']
 
-    update_resp = update_booking(booking_id, changed_data, token)
-    assert_status_code(update_resp.status_code, 400)
+        update_resp = update_booking(self.booking_id, new_changed_data, self.token)
+        assert_status_code(update_resp.status_code, 400)
+
+
+    def test_update_booking_without_depositpaid(self):
+        new_changed_data = copy.deepcopy(self.changed_data)
+        del new_changed_data['depositpaid']
+
+        update_resp = update_booking(self.booking_id, new_changed_data, self.token)
+        assert_status_code(update_resp.status_code, 400)
+
+
+    def test_update_booking_without_bookingdates(self):
+        new_changed_data = copy.deepcopy(self.changed_data)
+        del new_changed_data['bookingdates']
+
+        update_resp = update_booking(self.booking_id, new_changed_data, self.token)
+        assert_status_code(update_resp.status_code, 400)
+
+
+    def test_update_booking_without_bookingdates_checkin(self):
+        new_changed_data = copy.deepcopy(self.changed_data)
+        del new_changed_data['bookingdates']['checkin']
+
+        update_resp = update_booking(self.booking_id, new_changed_data, self.token)
+        assert_status_code(update_resp.status_code, 400)
+
+
+    def test_update_booking_without_bookingdates_checkout(self):
+        new_changed_data = copy.deepcopy(self.changed_data)
+        del new_changed_data['bookingdates']['checkout']
+
+        update_resp = update_booking(self.booking_id, new_changed_data, self.token)
+        assert_status_code(update_resp.status_code, 400)
