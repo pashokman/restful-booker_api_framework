@@ -7,7 +7,7 @@ from utils.assertions.assert_response_is_empty import assert_response_is_empty
 
 @pytest.mark.get_booking_ids
 def test_get_booking_ids_by_non_existing_firstname():
-    params = {'firstname': 'Pop'}
+    params = {'firstname': 'Pdp'}
     get_ids_resp_json = get_booking_ids_json(params)
     
     assert_response_is_empty(get_ids_resp_json)
@@ -15,7 +15,7 @@ def test_get_booking_ids_by_non_existing_firstname():
 
 @pytest.mark.get_booking_ids
 def test_get_booking_ids_by_non_existing_lastname():
-    params = {'lastname': 'Rorin'}
+    params = {'lastname': 'Rorir'}
     get_ids_resp_json = get_booking_ids_json(params)
     
     assert_response_is_empty(get_ids_resp_json)

@@ -23,7 +23,7 @@ def prepare():
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
-def test_partial_update_booking_token_and_1_symbol(prepare):
+def test_partial_update_booking_token_plus_1_end_symbol(prepare):
     token, booking_id = prepare
     token = token + 'w'
     
@@ -56,10 +56,11 @@ def test_partial_update_booking_token_without_first_symbol(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.security
-def test_partial_update_booking_without_token(prepare):
+def test_partial_update_booking_with_empty_token(prepare):
     token, booking_id = prepare
+    token = ''
 
-    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'})
+    part_upd_resp = partial_update_boking(booking_id, {'firstname': 'Joey'}, token)
 
     assert_status_code(part_upd_resp.status_code, 403)
 

@@ -5,6 +5,7 @@ from data.booking.booking_objects import NEW_BOOKING_DATA
 
 from utils.methods.authorization import authorization
 from utils.methods.booking import *
+
 from utils.assertions.assert_schema_validation import assert_schema_list_validation
 
 

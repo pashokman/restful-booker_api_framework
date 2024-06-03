@@ -25,7 +25,7 @@ def prepare():
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_all_params_success(prepare):
+def test_partial_update_booking_all_params_successful(prepare):
     token, booking_id = prepare
 
     part_upd_resp = partial_update_boking(booking_id, UPDATE_BOOKING_DATA, token)
@@ -38,15 +38,16 @@ def test_partial_update_booking_all_params_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_firstname_param_success(prepare):
+def test_partial_update_booking_firstname_param_successful(prepare):
     token, booking_id = prepare
 
     firstname = 'Trevor'
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['firstname'] = firstname
-    update_data = {'firstname': firstname}
     
+    update_data = {'firstname': firstname}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)
@@ -56,15 +57,16 @@ def test_partial_update_booking_firstname_param_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_lastname_param_success(prepare):
+def test_partial_update_booking_lastname_param_successful(prepare):
     token, booking_id = prepare
 
     lastname = 'Kollins'
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['lastname'] = lastname
-    update_data = {'lastname': lastname}
 
+    update_data = {'lastname': lastname}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+    
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)
@@ -74,15 +76,16 @@ def test_partial_update_booking_lastname_param_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_totalprice_param_success(prepare):
+def test_partial_update_booking_totalprice_param_successful(prepare):
     token, booking_id = prepare
 
     totalprice = 2345
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['totalprice'] = totalprice
-    update_data = {'totalprice': totalprice}
 
+    update_data = {'totalprice': totalprice}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+    
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)
@@ -92,15 +95,16 @@ def test_partial_update_booking_totalprice_param_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_depositpaid_param_success(prepare):
+def test_partial_update_booking_depositpaid_param_successful(prepare):
     token, booking_id = prepare
 
     depositpaid = False
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['depositpaid'] = depositpaid
-    update_data = {'depositpaid': depositpaid}
 
+    update_data = {'depositpaid': depositpaid}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+    
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)
@@ -110,7 +114,7 @@ def test_partial_update_booking_depositpaid_param_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_bookingdates_param_success(prepare):
+def test_partial_update_booking_bookingdates_param_successful(prepare):
     token, booking_id = prepare
 
     bookingdates = {
@@ -119,9 +123,10 @@ def test_partial_update_booking_bookingdates_param_success(prepare):
     }
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['bookingdates'] = bookingdates
-    update_data = {'bookingdates': bookingdates}
 
+    update_data = {'bookingdates': bookingdates}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+    
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)
@@ -131,16 +136,17 @@ def test_partial_update_booking_bookingdates_param_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_bookingdates_checkin_param_success(prepare):
+def test_partial_update_booking_bookingdates_checkin_param_successful(prepare):
     token, booking_id = prepare
 
     checkin = "2023-11-15"
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['bookingdates']['checkin'] = checkin
     exp_booking['bookingdates']['checkout'] = '0NaN-aN-aN'
-    update_data = {'bookingdates':{'checkin': checkin}}
 
+    update_data = {'bookingdates':{'checkin': checkin}}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+    
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)
@@ -150,16 +156,17 @@ def test_partial_update_booking_bookingdates_checkin_param_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_bookingdates_checkout_param_success(prepare):
+def test_partial_update_booking_bookingdates_checkout_param_successful(prepare):
     token, booking_id = prepare
 
     checkout = "2023-11-15"
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['bookingdates']['checkin'] = '0NaN-aN-aN'
     exp_booking['bookingdates']['checkout'] = checkout
-    update_data = {'bookingdates':{'checkout': checkout}}
 
+    update_data = {'bookingdates':{'checkout': checkout}}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+    
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)
@@ -169,15 +176,16 @@ def test_partial_update_booking_bookingdates_checkout_param_success(prepare):
 
 @pytest.mark.partial_update_booking
 @pytest.mark.success
-def test_partial_update_booking_additionalneeds_param_success(prepare):
+def test_partial_update_booking_additionalneeds_param_successful(prepare):
     token, booking_id = prepare
 
     additionalneeds = "2 sofas"
     exp_booking = copy.deepcopy(NEW_BOOKING_DATA)
     exp_booking['additionalneeds'] = additionalneeds
-    update_data = {'additionalneeds': additionalneeds}
 
+    update_data = {'additionalneeds': additionalneeds}
     part_upd_resp = partial_update_boking(booking_id, update_data, token)
+    
     get_resp_json = get_booking_json(booking_id)
 
     assert_status_code(part_upd_resp.status_code, 200)

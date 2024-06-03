@@ -23,9 +23,10 @@ def prepare():
 
 @pytest.mark.update_booking
 @pytest.mark.security
-def test_update_booking_token_and_1_symbol(prepare):
+def test_update_booking_token_plus_1_end_symbol(prepare):
     token, booking_id = prepare
     token = token + 'w'
+    
     update_resp = update_booking(booking_id, UPDATE_BOOKING_DATA, token)
     assert_status_code(update_resp.status_code, 403)
 
@@ -35,6 +36,7 @@ def test_update_booking_token_and_1_symbol(prepare):
 def test_update_booking_token_without_last_symbol(prepare):
     token, booking_id = prepare
     token = token[0:-1]
+    
     update_resp = update_booking(booking_id, UPDATE_BOOKING_DATA, token)
     assert_status_code(update_resp.status_code, 403)
 
@@ -44,15 +46,18 @@ def test_update_booking_token_without_last_symbol(prepare):
 def test_update_booking_token_without_first_symbol(prepare):
     token, booking_id = prepare
     token = token[1:]
+    
     update_resp = update_booking(booking_id, UPDATE_BOOKING_DATA, token)
     assert_status_code(update_resp.status_code, 403)
 
 
 @pytest.mark.update_booking
 @pytest.mark.security
-def test_update_booking_without_token(prepare):
+def test_update_booking_with_empty_token(prepare):
     token, booking_id = prepare
-    update_resp = update_booking(booking_id, UPDATE_BOOKING_DATA)
+    token = ''
+    
+    update_resp = update_booking(booking_id, UPDATE_BOOKING_DATA, token)
     assert_status_code(update_resp.status_code, 403)
 
 
@@ -60,5 +65,6 @@ def test_update_booking_without_token(prepare):
 @pytest.mark.security
 def test_update_booking_without_headers(prepare):
     token, booking_id = prepare
+    
     update_resp = api_client.put(UPDATE_BOOKING_ENDPOINT(booking_id), UPDATE_BOOKING_DATA)
     assert_status_code(update_resp.status_code, 403)

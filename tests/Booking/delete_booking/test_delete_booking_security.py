@@ -23,7 +23,7 @@ def prepare():
 
 @pytest.mark.delete_booking
 @pytest.mark.security
-def test_delete_booking_token_and_1_symbol(prepare):
+def test_delete_booking_token_plus_1_end_symbol(prepare):
     token, booking_id = prepare
     token = token + 'w'
 
@@ -56,7 +56,7 @@ def test_delete_booking_token_without_first_symbol(prepare):
 
 @pytest.mark.delete_booking
 @pytest.mark.security
-def test_delete_booking_without_token(prepare):
+def test_delete_booking_with_empty_token(prepare):
     token, booking_id = prepare
     token = ''
 

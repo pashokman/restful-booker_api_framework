@@ -63,7 +63,7 @@ def test_create_booking_bookingdates_not_dictionary():
 
 
 @pytest.mark.create_booking
-def test_create_booking_bookingdates_checkin_not_date():
+def test_create_booking_bookingdates_checkin_not_string_date():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     changed_data['bookingdates']['checkin'] = 321
 
@@ -72,7 +72,7 @@ def test_create_booking_bookingdates_checkin_not_date():
 
 
 @pytest.mark.create_booking
-def test_create_booking_bookingdates_checkout_not_date():
+def test_create_booking_bookingdates_checkout_not_string_date():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     changed_data['bookingdates']['checkout'] = 321
 

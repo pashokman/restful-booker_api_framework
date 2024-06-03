@@ -34,7 +34,7 @@ def three_bookings_creation():
 
 @pytest.mark.get_booking_ids
 @pytest.mark.success
-def test_get_booking_ids_by_firstname_lastname_success(three_bookings_creation):
+def test_get_booking_ids_by_firstname_lastname_successful(three_bookings_creation):
     first_id, second_id, third_id = three_bookings_creation
 
     params = {'firstname': 'Lester', 'lastname': 'Tester'}
@@ -49,7 +49,7 @@ def test_get_booking_ids_by_firstname_lastname_success(three_bookings_creation):
 
 @pytest.mark.get_booking_ids
 @pytest.mark.success
-def test_get_booking_ids_by_firstname_success(three_bookings_creation):
+def test_get_booking_ids_by_firstname_successful(three_bookings_creation):
     first_id, second_id, third_id = three_bookings_creation
 
     params = {'firstname': 'Lester'}
@@ -64,7 +64,7 @@ def test_get_booking_ids_by_firstname_success(three_bookings_creation):
 
 @pytest.mark.get_booking_ids
 @pytest.mark.success
-def test_get_booking_ids_by_lastname_success(three_bookings_creation):
+def test_get_booking_ids_by_lastname_successful(three_bookings_creation):
     first_id, second_id, third_id = three_bookings_creation
 
     params = {'lastname': 'Tester'}
@@ -79,7 +79,7 @@ def test_get_booking_ids_by_lastname_success(three_bookings_creation):
 
 @pytest.mark.get_booking_ids
 @pytest.mark.success
-def test_get_booking_ids_by_checkin_success(three_bookings_creation):
+def test_get_booking_ids_by_checkin_successful(three_bookings_creation):
     first_id, second_id, third_id = three_bookings_creation
 
     params = {'checkin': '2023-11-11'}
@@ -95,7 +95,7 @@ def test_get_booking_ids_by_checkin_success(three_bookings_creation):
 
 @pytest.mark.get_booking_ids
 @pytest.mark.success
-def test_get_booking_ids_by_checkout_success(three_bookings_creation):
+def test_get_booking_ids_by_checkout_successful(three_bookings_creation):
     first_id, second_id, third_id = three_bookings_creation
 
     params = {'checkout': '2023-11-12'}

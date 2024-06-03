@@ -13,7 +13,7 @@ from utils.assertions.assert_json_object import assert_json_object
 
 @pytest.mark.create_booking
 @pytest.mark.success
-def test_create_booking_success():
+def test_create_booking_successful():
     token = authorization(AUTH_DATA)
 
     create_resp = create_booking(NEW_BOOKING_DATA)
