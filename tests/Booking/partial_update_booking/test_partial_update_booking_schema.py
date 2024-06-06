@@ -32,7 +32,7 @@ def test_partial_update_booking_all_params_schema():
     token = authorization(AUTH_DATA)
 
     create_resp_json = create_booking_json(NEW_BOOKING_DATA)
-    booking_id = create_resp_json['bookingid']
+    booking_id = create_resp_json.get('bookingid', 'Key not exist')
 
     part_upd_resp = partial_update_boking_json(booking_id, UPDATE_BOOKING_DATA, token)
 

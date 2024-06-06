@@ -18,15 +18,16 @@ def test_create_booking_successful():
 
     create_resp = create_booking(NEW_BOOKING_DATA)
     create_resp_json = create_resp.json()
+    booking_id = create_resp_json.get('bookingid', 'Key not exist')
     
     exp_obj = {}
     exp_obj['booking'] = copy.deepcopy(NEW_BOOKING_DATA)
-    exp_obj['bookingid'] = create_resp_json['bookingid']
+    exp_obj['bookingid'] = booking_id
 
     assert_status_code(create_resp.status_code, 200)
     assert_json_object(create_resp_json, exp_obj)
     
-    get_resp = get_booking_json(create_resp_json['bookingid'])
+    get_resp = get_booking_json(booking_id)
     assert_json_object(get_resp, exp_obj['booking'])
     
-    delete_booking(create_resp_json['bookingid'], token)
+    delete_booking(booking_id, token)

@@ -17,13 +17,13 @@ def three_bookings_creation():
 
     # create 2 same books and one different
     first_booking_resp_json = create_booking_json(NEW_BOOKING_DATA)
-    first_id = first_booking_resp_json['bookingid']
+    first_id = first_booking_resp_json.get('bookingid', 'Key not exist')
 
     second_booking_resp_json = create_booking_json(NEW_BOOKING_DATA)
-    second_id = second_booking_resp_json['bookingid']
+    second_id = second_booking_resp_json.get('bookingid', 'Key not exist')
 
     third_booking_resp_json = create_booking_json(NEW_BOOKING_DATA2)
-    third_id = third_booking_resp_json['bookingid']
+    third_id = third_booking_resp_json.get('bookingid', 'Key not exist')
 
     yield first_id, second_id, third_id
 

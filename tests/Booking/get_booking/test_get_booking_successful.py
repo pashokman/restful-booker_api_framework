@@ -16,7 +16,7 @@ def test_get_booking_successful():
     token = authorization(AUTH_DATA)
 
     create_resp_json = create_booking_json(NEW_BOOKING_DATA)
-    booking_id = create_resp_json['bookingid']
+    booking_id = create_resp_json.get('bookingid', 'Key not exist')
 
     get_resp = get_booking(booking_id)
     

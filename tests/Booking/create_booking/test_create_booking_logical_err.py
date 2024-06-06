@@ -29,8 +29,8 @@ def test_create_booking_totalprice_less_than_0():
 @pytest.mark.create_booking
 def test_create_booking_bookingdates_checkout_before_checkin():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    new_checkin = changed_data['bookingdates']['checkout']
-    new_checkout = changed_data['bookingdates']['checkin']
+    new_checkin = changed_data.get('bookingdates', 'Key not exist').get('checkout', 'Key not exist')
+    new_checkout = changed_data.get('bookingdates', 'Key not exist').get('checkin', 'Key not exist')
     changed_data['bookingdates']['checkin'] = new_checkin
     changed_data['bookingdates']['checkout'] = new_checkout
 
