@@ -16,7 +16,7 @@ def test_create_booking_without_additionalneeds():
     token = authorization(AUTH_DATA)
 
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['additionalneeds']
+    changed_data.pop('additionalneeds', 'Key not exist')
     
     create_resp = create_booking(changed_data)
     create_resp_json = create_resp.json()

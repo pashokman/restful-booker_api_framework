@@ -34,7 +34,7 @@ class TestUpdateBookingWithoutMandatoryFields():
 
     def test_update_booking_without_firstname(self):
         new_changed_data = copy.deepcopy(self.changed_data)
-        del new_changed_data['firstname']
+        new_changed_data.pop('firstname', 'Key not exist')
 
         update_resp = update_booking(self.booking_id, new_changed_data, self.token)
         assert_status_code(update_resp.status_code, 400)
@@ -42,7 +42,7 @@ class TestUpdateBookingWithoutMandatoryFields():
 
     def test_update_booking_without_lastname(self):
         new_changed_data = copy.deepcopy(self.changed_data)
-        del new_changed_data['lastname']
+        new_changed_data.pop('lastname', 'Key not exist')
 
         update_resp = update_booking(self.booking_id, new_changed_data, self.token)
         assert_status_code(update_resp.status_code, 400)
@@ -50,7 +50,7 @@ class TestUpdateBookingWithoutMandatoryFields():
 
     def test_update_booking_without_totalprice(self):
         new_changed_data = copy.deepcopy(self.changed_data)
-        del new_changed_data['totalprice']
+        new_changed_data.pop('totalprice', 'Key not exist')
 
         update_resp = update_booking(self.booking_id, new_changed_data, self.token)
         assert_status_code(update_resp.status_code, 400)
@@ -58,7 +58,7 @@ class TestUpdateBookingWithoutMandatoryFields():
 
     def test_update_booking_without_depositpaid(self):
         new_changed_data = copy.deepcopy(self.changed_data)
-        del new_changed_data['depositpaid']
+        new_changed_data.pop('depositpaid', 'Key not exist')
 
         update_resp = update_booking(self.booking_id, new_changed_data, self.token)
         assert_status_code(update_resp.status_code, 400)
@@ -66,7 +66,7 @@ class TestUpdateBookingWithoutMandatoryFields():
 
     def test_update_booking_without_bookingdates(self):
         new_changed_data = copy.deepcopy(self.changed_data)
-        del new_changed_data['bookingdates']
+        new_changed_data.pop('bookingdates', 'Key not exist')
 
         update_resp = update_booking(self.booking_id, new_changed_data, self.token)
         assert_status_code(update_resp.status_code, 400)
@@ -74,7 +74,7 @@ class TestUpdateBookingWithoutMandatoryFields():
 
     def test_update_booking_without_bookingdates_checkin(self):
         new_changed_data = copy.deepcopy(self.changed_data)
-        del new_changed_data['bookingdates']['checkin']
+        new_changed_data.get('bookingdates', 'Key not exist').pop('checkin', 'Key not exist')
 
         update_resp = update_booking(self.booking_id, new_changed_data, self.token)
         assert_status_code(update_resp.status_code, 400)
@@ -82,7 +82,7 @@ class TestUpdateBookingWithoutMandatoryFields():
 
     def test_update_booking_without_bookingdates_checkout(self):
         new_changed_data = copy.deepcopy(self.changed_data)
-        del new_changed_data['bookingdates']['checkout']
+        new_changed_data.get('bookingdates', 'Key not exist').pop('checkout', 'Key not exist')
 
         update_resp = update_booking(self.booking_id, new_changed_data, self.token)
         assert_status_code(update_resp.status_code, 400)

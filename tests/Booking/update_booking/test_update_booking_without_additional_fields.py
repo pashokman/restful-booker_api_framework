@@ -29,7 +29,7 @@ def preparation():
 @pytest.mark.success
 def test_update_booking_without_additionalneeds(preparation):
     token, booking_id, changed_data = preparation
-    del changed_data['additionalneeds']
+    changed_data.pop('additionalneeds', 'Key not exist')
 
     exp_obj = UPDATE_BOOKING_DATA
     exp_obj['additionalneeds'] = NEW_BOOKING_DATA['additionalneeds']

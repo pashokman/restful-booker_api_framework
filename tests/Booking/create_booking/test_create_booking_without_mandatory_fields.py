@@ -11,7 +11,7 @@ from utils.assertions.assert_status_code import assert_status_code
 @pytest.mark.create_booking
 def test_create_booking_without_firstname():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['firstname']
+    changed_data.pop('firstname', 'Key not exist')
 
     create_resp = create_booking(changed_data)
 
@@ -21,7 +21,7 @@ def test_create_booking_without_firstname():
 @pytest.mark.create_booking
 def test_create_booking_without_lastname():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['lastname']
+    changed_data.pop('lastname', 'Key not exist')
 
     create_resp = create_booking(changed_data)
 
@@ -31,7 +31,7 @@ def test_create_booking_without_lastname():
 @pytest.mark.create_booking
 def test_create_booking_without_totalprice():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['totalprice']
+    changed_data.pop('totalprice', 'Key not exist')
 
     create_resp = create_booking(changed_data)
 
@@ -41,7 +41,7 @@ def test_create_booking_without_totalprice():
 @pytest.mark.create_booking
 def test_create_booking_without_depositpaid():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['depositpaid']
+    changed_data.pop('depositpaid', 'Key not exist')
 
     create_resp = create_booking(changed_data)
 
@@ -51,7 +51,7 @@ def test_create_booking_without_depositpaid():
 @pytest.mark.create_booking
 def test_create_booking_without_bookingdates():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['bookingdates']
+    changed_data.pop('bookingdates', 'Key not exist')
 
     create_resp = create_booking(changed_data)
 
@@ -61,7 +61,7 @@ def test_create_booking_without_bookingdates():
 @pytest.mark.create_booking
 def test_create_booking_without_bookingdates_checkin():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['bookingdates']['checkin']
+    changed_data.get('bookingdates', 'Key not exist').pop('checkin', 'Key not exist')
 
     create_resp = create_booking(changed_data)
 
@@ -71,7 +71,7 @@ def test_create_booking_without_bookingdates_checkin():
 @pytest.mark.create_booking
 def test_create_booking_without_bookingdates_checkout():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
-    del changed_data['bookingdates']['checkout']
+    changed_data.get('bookingdates', 'Key not exist').pop('checkout', 'Key not exist')
 
     create_resp = create_booking(changed_data)
 
