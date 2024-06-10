@@ -4,7 +4,7 @@ from data.auth.auth_objects import AUTH_DATA
 from data.booking.booking_objects import NEW_BOOKING_DATA
 
 from utils.methods.authorization import authorization
-from utils.methods.booking import *
+from utils.methods.booking import create_booking_json, get_booking_ids_json, delete_booking
 
 from utils.assertions.assert_schema_validation import assert_schema_list_validation
 

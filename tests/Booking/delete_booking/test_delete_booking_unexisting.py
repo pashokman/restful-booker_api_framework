@@ -3,7 +3,7 @@ import pytest
 from data.auth.auth_objects import AUTH_DATA
 
 from utils.methods.authorization import authorization
-from utils.methods.booking import *
+from utils.methods.booking import delete_booking
 
 from utils.assertions.assert_status_code import assert_status_code
 

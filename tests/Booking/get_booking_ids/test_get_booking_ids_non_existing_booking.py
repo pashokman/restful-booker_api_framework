@@ -1,6 +1,6 @@
 import pytest
 
-from utils.methods.booking import *
+from utils.methods.booking import get_booking_ids_json
 
 from utils.assertions.assert_response_is_empty import assert_response_is_empty
 

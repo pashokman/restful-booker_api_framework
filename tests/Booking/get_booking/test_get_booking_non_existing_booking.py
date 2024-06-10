@@ -1,6 +1,6 @@
 import pytest
 
-from utils.methods.booking import *
+from utils.methods.booking import get_booking
 
 from utils.assertions.assert_status_code import assert_status_code
 

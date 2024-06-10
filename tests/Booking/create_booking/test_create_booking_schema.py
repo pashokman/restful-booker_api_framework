@@ -2,7 +2,7 @@ import pytest
 
 from data.booking.booking_objects import NEW_BOOKING_DATA
 
-from utils.methods.booking import *
+from utils.methods.booking import create_booking_json
 
 from utils.assertions.assert_schema_validation import assert_schema_validation
 
