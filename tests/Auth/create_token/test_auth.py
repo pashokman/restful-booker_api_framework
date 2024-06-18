@@ -50,3 +50,27 @@ def test_auth_incorrect_password():
     assert_status_code(response.status_code, 200)
     assert_obj_in_obj('reason', response.json())
     assert_json_object(response.json()['reason'], 'Bad credentials')
+
+
+@pytest.mark.auth
+def test_auth_without_username():
+    incorrect_data = copy.deepcopy(AUTH_DATA)
+    del incorrect_data['username']
+    
+    response = auth(incorrect_data)
+
+    assert_status_code(response.status_code, 200)
+    assert_obj_in_obj('reason', response.json())
+    assert_json_object(response.json()['reason'], 'Bad credentials')
+
+
+@pytest.mark.auth
+def test_auth_without_password():
+    incorrect_data = copy.deepcopy(AUTH_DATA)
+    del incorrect_data['password']
+    
+    response = auth(incorrect_data)
+
+    assert_status_code(response.status_code, 200)
+    assert_obj_in_obj('reason', response.json())
+    assert_json_object(response.json()['reason'], 'Bad credentials')
