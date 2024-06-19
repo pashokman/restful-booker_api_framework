@@ -10,7 +10,9 @@ from utils.assertions.assert_obj_in_obj import assert_obj_in_obj
 from utils.assertions.assert_status_code import assert_status_code
 
 
-@pytest.mark.auth
+pytestmark = pytest.mark.auth
+
+
 @pytest.mark.success
 def test_auth_correct_credentials():
     response = auth(AUTH_DATA)
@@ -29,7 +31,6 @@ def test_auth_correct_credentials():
             ("", "pass123"),
         ]
     )
-@pytest.mark.auth
 def test_auth_fail(login, password):
     data = {
             "login": login,

@@ -8,7 +8,9 @@ from utils.methods.booking import create_booking
 from utils.assertions.assert_status_code import assert_status_code
 
 
-@pytest.mark.create_booking
+pytestmark = pytest.mark.create_booking
+
+
 def test_create_booking_firstname_not_string():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     changed_data['firstname'] = 123
@@ -17,7 +19,6 @@ def test_create_booking_firstname_not_string():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_lastname_not_string():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     changed_data['lastname'] = 123
@@ -26,7 +27,6 @@ def test_create_booking_lastname_not_string():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_totalprice_not_number():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # totalprice should be integer
@@ -36,7 +36,6 @@ def test_create_booking_totalprice_not_number():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_totalprice_not_integer():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # totalprice should be integer
@@ -46,7 +45,6 @@ def test_create_booking_totalprice_not_integer():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_depositpaid_not_boolean():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # depositpaid should be boolean
@@ -56,7 +54,6 @@ def test_create_booking_depositpaid_not_boolean():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_bookingdates_not_dictionary():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     changed_data['bookingdates'] = 'some string'
@@ -65,7 +62,6 @@ def test_create_booking_bookingdates_not_dictionary():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_bookingdates_checkin_not_string_date():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # bookingdates-checkin should be date string
@@ -75,7 +71,6 @@ def test_create_booking_bookingdates_checkin_not_string_date():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_bookingdates_checkout_not_string_date():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # bookingdates-checkout should be date string
@@ -85,7 +80,6 @@ def test_create_booking_bookingdates_checkout_not_string_date():
     assert_status_code(response.status_code, 500)
 
 
-@pytest.mark.create_booking
 def test_create_booking_additionalneeds_not_string():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # additionalneeds should be string

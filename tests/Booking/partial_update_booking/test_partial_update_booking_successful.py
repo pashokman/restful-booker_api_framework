@@ -11,6 +11,9 @@ from utils.assertions.assert_status_code import assert_status_code
 from utils.assertions.assert_json_object import assert_json_object
 
 
+pytestmark = [pytest.mark.partial_update_booking, pytest.mark.success]
+
+
 @pytest.fixture
 def prepare():
     token = authorization(AUTH_DATA)
@@ -23,8 +26,6 @@ def prepare():
     delete_booking(booking_id, token)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_all_params_successful(prepare):
     token, booking_id = prepare
 
@@ -36,8 +37,6 @@ def test_partial_update_booking_all_params_successful(prepare):
     assert_json_object(get_resp_json, UPDATE_BOOKING_DATA)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_firstname_param_successful(prepare):
     token, booking_id = prepare
 
@@ -55,8 +54,6 @@ def test_partial_update_booking_firstname_param_successful(prepare):
     assert_json_object(get_resp_json, exp_booking)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_lastname_param_successful(prepare):
     token, booking_id = prepare
 
@@ -74,8 +71,6 @@ def test_partial_update_booking_lastname_param_successful(prepare):
     assert_json_object(get_resp_json, exp_booking)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_totalprice_param_successful(prepare):
     token, booking_id = prepare
 
@@ -93,8 +88,6 @@ def test_partial_update_booking_totalprice_param_successful(prepare):
     assert_json_object(get_resp_json, exp_booking)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_depositpaid_param_successful(prepare):
     token, booking_id = prepare
 
@@ -112,8 +105,6 @@ def test_partial_update_booking_depositpaid_param_successful(prepare):
     assert_json_object(get_resp_json, exp_booking)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_bookingdates_param_successful(prepare):
     token, booking_id = prepare
 
@@ -134,8 +125,6 @@ def test_partial_update_booking_bookingdates_param_successful(prepare):
     assert_json_object(get_resp_json, exp_booking)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_bookingdates_checkin_param_successful(prepare):
     token, booking_id = prepare
 
@@ -154,8 +143,6 @@ def test_partial_update_booking_bookingdates_checkin_param_successful(prepare):
     assert_json_object(get_resp_json, exp_booking)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_bookingdates_checkout_param_successful(prepare):
     token, booking_id = prepare
 
@@ -174,8 +161,6 @@ def test_partial_update_booking_bookingdates_checkout_param_successful(prepare):
     assert_json_object(get_resp_json, exp_booking)
 
 
-@pytest.mark.partial_update_booking
-@pytest.mark.success
 def test_partial_update_booking_additionalneeds_param_successful(prepare):
     token, booking_id = prepare
 

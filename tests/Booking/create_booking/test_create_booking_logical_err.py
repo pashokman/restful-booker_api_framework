@@ -8,7 +8,9 @@ from utils.methods.booking import create_booking
 from utils.assertions.assert_status_code import assert_status_code
 
 
-@pytest.mark.create_booking
+pytestmark = pytest.mark.create_booking
+
+
 def test_create_booking_totalprice_0():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # totalprice can't be 0
@@ -18,7 +20,6 @@ def test_create_booking_totalprice_0():
     assert_status_code(response.status_code, 403)
 
 
-@pytest.mark.create_booking
 def test_create_booking_totalprice_less_than_0():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     # totalprice can't be < 0
@@ -28,7 +29,6 @@ def test_create_booking_totalprice_less_than_0():
     assert_status_code(response.status_code, 403)
 
 
-@pytest.mark.create_booking
 def test_create_booking_bookingdates_checkout_before_checkin():
     changed_data = copy.deepcopy(NEW_BOOKING_DATA)
     new_checkin = changed_data.get('bookingdates', 'Key not exist').get('checkout', 'Key not exist')

@@ -10,7 +10,9 @@ from utils.assertions.assert_obj_in_obj import assert_obj_in_obj
 from utils.assertions.assert_status_code import assert_status_code
 
 
-@pytest.mark.auth
+pytestmark = pytest.mark.auth
+
+
 @pytest.mark.success
 def test_auth_correct_credentials():
     response = auth(AUTH_DATA)
@@ -32,7 +34,6 @@ def pytest_generate_tests(metafunc):
         )
 
 
-@pytest.mark.auth
 def test_auth_fail(login_data):
     login, password = login_data
     data = {
